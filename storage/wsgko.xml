@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <login>https://buckman.gkofrete.com.br/app/hml/api/wsgko.dll/WS_PC_APP/XML</login>
+    <P0053>https://buckman.gkofrete.com.br/app/hml/api/wsgko.dll/WS_PC_IMPDADOS/XML</P0053>
+    <P0043>https://buckman.gkofrete.com.br/app/hml/api/wsgko.dll/WS_PC_IMPDADOS/XML</P0043>
+    <P0072>https://buckman.gkofrete.com.br/app/hml/api/wsgko.dll/WS_PC_IMPDADOS/XML</P0072>
+    <P0244>https://buckman.gkofrete.com.br/app/hml/api/wsgko.dll/WS_PC_IMPDADOS/XML</P0244>
+</WS>
