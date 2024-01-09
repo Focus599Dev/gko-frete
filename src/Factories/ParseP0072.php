@@ -26,4 +26,28 @@ class ParseP0072 extends Parse{
             'nmTabela' => 'MNTAITEM',
         ));
     }
+
+    public function EntityC($std){
+
+        $this->make->createRelationshipMTexto($std, array(
+            'NmRelacioPai' => 'MNTA_MTEXTO',
+            'nmTabela' => 'MTEXTO',
+        ));
+    }
+
+    public function EntityD($std){
+
+        $this->make->createRelationCredSP($std, array(
+            'NmRelacioPai' => 'MNTA_CREDESP',
+            'nmTabela' => 'CREDESPACHO',
+        ));
+    }
+
+    public function EntityE($std){
+
+        $this->make->createRelationEndereco($std, array(
+            'NmRelacioPai' => 'CEND_MNOTA',
+            'nmTabela' => 'CENDERECO',
+        ));
+    }
 }

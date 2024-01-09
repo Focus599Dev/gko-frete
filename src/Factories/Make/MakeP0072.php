@@ -652,6 +652,324 @@ class MakeP0043 extends Make{
         $this->relacionamentos[] = $DadosTabela;
     }
 
+    private function createRelationshipMTexto($std, $attributes){
+
+        $possible = [
+            'TXMEMO',
+            'STCANCELADO',
+            'STCREDITOICMS',
+            'STCREDITOIMP1',
+            'STCREDITOIMP2',
+            'STCREDITOIMP3',
+            'DSOBSERVACAO',
+            'OBSERVACAO_1',
+            'OBSERVACAO_2',
+            'OBSERVACAO_3',
+        ];
+        
+        $std = $this->equilizeParameters($std, $possible);
+
+        $DadosTabela = $this->dom->createElement('DadosTabela');
+
+        foreach($attributes as $key => $attribute){
+            
+            $DadosTabela->setAttribute($key, $attribute);
+        }
+
+        $Linha = $this->dom->createElement('Linha');
+
+        $Campos = $this->dom->createElement('Campos');
+
+        $this->dom->addChild(
+            $Campos,
+            "TXMEMO",
+            $std->TXMEMO,
+            true,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "STCANCELADO",
+            $std->STCANCELADO,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "STCREDITOICMS",
+            $std->STCREDITOICMS,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "STCREDITOIMP1",
+            $std->STCREDITOIMP1,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "STCREDITOIMP2",
+            $std->STCREDITOIMP2,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "STCREDITOIMP3",
+            $std->STCREDITOIMP3,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "DSOBSERVACAO",
+            $std->DSOBSERVACAO,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "OBSERVACAO_1",
+            $std->OBSERVACAO_1,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "OBSERVACAO_2",
+            $std->OBSERVACAO_2,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "OBSERVACAO_3",
+            $std->OBSERVACAO_3,
+            false,
+            ""
+        );
+
+        $this->dom->appChild($Linha, $Campos);
+
+        $this->dom->appChild($DadosTabela, $Linha);
+
+        $this->relacionamentos[] = $DadosTabela;
+    }
+
+    private function createRelationCredSP($std, $attributes){
+
+        $possible = [
+            'NOORDEMREDESPACHO',
+            'PARREDESPACHO_TPPARCEIROCOMERCIA',
+            'PARREDESPACHO_CDPARCEIROCOMERCIAL',
+            'PARREDESPACHO_NOCGCCPF',
+            'PARTRPREDESPACHO_NOCGCCPF',
+            'PARTRPREDESP_SISCORPORATIVO',
+            'EQUIPAMENTO_CDEQUIPAMENTO',
+            'MEIOTRASNPORTE_CDMEIOTRANSPORTE',
+            'TIPOCONTRATO_CDTIPOCONTRATO',
+            'TPFRETEREDESPACHO',
+            'STFRETEDIFERENCIADO',
+            'TPSTATUSTRECHO',
+        ];
+        
+        $std = $this->equilizeParameters($std, $possible);
+
+        $DadosTabela = $this->dom->createElement('DadosTabela');
+
+        foreach($attributes as $key => $attribute){
+            
+            $DadosTabela->setAttribute($key, $attribute);
+        }
+
+        $Linha = $this->dom->createElement('Linha');
+
+        $Campos = $this->dom->createElement('Campos');
+
+        $this->dom->addChild(
+            $Campos,
+            "NOORDEMREDESPACHO",
+            $std->NOORDEMREDESPACHO,
+            true,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "PARREDESPACHO_TPPARCEIROCOMERCIA",
+            $std->PARREDESPACHO_TPPARCEIROCOMERCIA,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "PARREDESPACHO_CDPARCEIROCOMERCIAL",
+            $std->PARREDESPACHO_CDPARCEIROCOMERCIAL,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "PARREDESPACHO_NOCGCCPF",
+            $std->PARREDESPACHO_NOCGCCPF,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "PARTRPREDESPACHO_NOCGCCPF",
+            $std->PARTRPREDESPACHO_NOCGCCPF,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "PARTRPREDESP_SISCORPORATIVO",
+            $std->PARTRPREDESP_SISCORPORATIVO,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "EQUIPAMENTO_CDEQUIPAMENTO",
+            $std->EQUIPAMENTO_CDEQUIPAMENTO,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "MEIOTRASNPORTE_CDMEIOTRANSPORTE",
+            $std->MEIOTRASNPORTE_CDMEIOTRANSPORTE,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "TIPOCONTRATO_CDTIPOCONTRATO",
+            $std->TIPOCONTRATO_CDTIPOCONTRATO,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "TPFRETEREDESPACHO",
+            $std->TPFRETEREDESPACHO,
+            true,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "STFRETEDIFERENCIADO",
+            $std->STFRETEDIFERENCIADO,
+            true,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "TPSTATUSTRECHO",
+            $std->TPSTATUSTRECHO,
+            true,
+            ""
+        );
+
+        $this->dom->appChild($Linha, $Campos);
+
+        $this->dom->appChild($DadosTabela, $Linha);
+
+        $this->relacionamentos[] = $DadosTabela;
+    }
+
+    private function createRelationEndereco($std, $attributes){
+
+        $possible = [
+            'DSENDERECO',
+            'DSBAIRRO',
+            'NOCEP',
+            'CIDADE',
+            'CDUF',
+        ];
+        
+        $std = $this->equilizeParameters($std, $possible);
+
+        $DadosTabela = $this->dom->createElement('DadosTabela');
+
+        foreach($attributes as $key => $attribute){
+            
+            $DadosTabela->setAttribute($key, $attribute);
+        }
+
+        $Linha = $this->dom->createElement('Linha');
+
+        $Campos = $this->dom->createElement('Campos');
+
+        $this->dom->addChild(
+            $Campos,
+            "DSENDERECO",
+            $std->DSENDERECO,
+            true,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "DSBAIRRO",
+            $std->DSBAIRRO,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "NOCEP",
+            $std->NOCEP,
+            true,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "CIDADE",
+            $std->CIDADE,
+            false,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "CDUF",
+            $std->CDUF,
+            true,
+            ""
+        );
+
+        $this->dom->appChild($Linha, $Campos);
+
+        $this->dom->appChild($DadosTabela, $Linha);
+
+        $this->relacionamentos[] = $DadosTabela;
+    }
+
     public function monta(){
 
         $this->makeStructureDefault($this->campos, $this->relacionamentos);
