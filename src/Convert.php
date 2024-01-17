@@ -6,6 +6,10 @@ use Focus599Dev\GKO\Factories\ParseP0043;
 use Focus599Dev\GKO\Factories\ParseP0053;
 use Focus599Dev\GKO\Factories\ParseP0072;
 use Focus599Dev\GKO\Factories\ParseP0244;
+use Focus599Dev\GKO\Factories\ParseIntCtbPag;
+use Focus599Dev\GKO\Factories\ParseIntCtbPag2;
+use Focus599Dev\GKO\Factories\ParseIntCtbProv1;
+use Focus599Dev\GKO\Factories\ParseIntCtbProv2;
 
 class Convert{
 
@@ -37,11 +41,111 @@ class Convert{
                 return $this->toXMLP0053();
             case 'P0043':
                 return $this->toXMLP0043();
-            case 'P0043':
+            case 'P0072':
                 return $this->toXMLP0072();
             case 'P0244':
                 return $this->toXMLP0244();
+            case 'IntCtbProv1':
+                return $this->toXMLIntCtbProv1();
+            case 'IntCtbProv2':
+                return $this->toXMLIntCtbProv2();
+            case 'IntCtbPag':
+                return $this->toXMLCtbPag();
+            case 'IntCtbPag2':
+                return $this->toXMLIntCtbPag2();
         }
+    }
+
+    public function toXMLIntCtbPag2($txt = '')
+    {
+
+        try {
+            $data = $this->sliceNotas("A");
+            
+            $xml = array();
+
+            foreach($data as $txtRequest){
+                
+                $parser = new ParseIntCtbPag2();
+
+                $xmls[] = $parser->toXml($txtRequest);
+            }
+
+            return $xmls;
+            
+        } catch (\Exception $e) {
+            throw new \Exception('Erro toXMLP0053: ' . $e->getMessage());
+        }
+
+    }
+
+    public function toXMLCtbPag($txt = '')
+    {
+
+        try {
+            $data = $this->sliceNotas("A");
+            
+            $xml = array();
+
+            foreach($data as $txtRequest){
+                
+                $parser = new ParseIntCtbPag();
+
+                $xmls[] = $parser->toXml($txtRequest);
+            }
+
+            return $xmls;
+            
+        } catch (\Exception $e) {
+            throw new \Exception('Erro toXMLP0053: ' . $e->getMessage());
+        }
+
+    }
+
+    public function toXMLIntCtbProv2($txt = '')
+    {
+
+        try {
+            $data = $this->sliceNotas("A");
+            
+            $xml = array();
+
+            foreach($data as $txtRequest){
+                
+                $parser = new ParseIntCtbProv2();
+
+                $xmls[] = $parser->toXml($txtRequest);
+            }
+
+            return $xmls;
+            
+        } catch (\Exception $e) {
+            throw new \Exception('Erro toXMLP0053: ' . $e->getMessage());
+        }
+
+    }
+
+    public function toXMLIntCtbProv1($txt = '')
+    {
+
+        try {
+            $data = $this->sliceNotas("A");
+            
+            $xml = array();
+
+            foreach($data as $txtRequest){
+                
+                $parser = new ParseIntCtbProv1();
+
+                $xmls[] = $parser->toXml($txtRequest);
+            }
+
+            return $xmls;
+            
+        } catch (\Exception $e) {
+            throw new \Exception('Erro toXMLP0053: ' . $e->getMessage());
+        }
+
     }
 
     public function toXMLP0053($txt = '')

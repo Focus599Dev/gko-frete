@@ -53,7 +53,6 @@ abstract class Parse{
 
         $keystructure = array_keys($this->structure);
 
-
         foreach ($rows as $lin) {
             
             $fields = $lin;
@@ -62,7 +61,20 @@ abstract class Parse{
                 continue;
             }
 
-            $metodo = 'Entity' . strtolower(str_replace(' ', '', $keystructure[0]));
+            $key = null;
+            if (in_array($lin[0], $keystructure)){
+    
+                $metodo = 'Entity' . strtolower(str_replace(' ', '', $lin[0]));
+
+                $key = $lin[0];
+
+            } else {
+
+                $metodo = 'Entity' . strtolower(str_replace(' ', '', $keystructure[0]));
+
+                $key =  $keystructure[0];
+
+            }
 
             if (!method_exists(__CLASS__, $metodo)) {
                 //campo não definido
@@ -70,7 +82,8 @@ abstract class Parse{
             }
 
 
-            $struct = $this->structure[strtoupper($keystructure[0])];
+            $struct = $this->structure[strtoupper($key)];
+
             $std = $this->fieldsToStd($fields, $struct);
 
             $this->$metodo($std);

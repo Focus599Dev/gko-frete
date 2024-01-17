@@ -5,7 +5,7 @@ namespace Focus599Dev\GKO\Factories\Make;
 use Focus599Dev\GKO\Factories\Make\traits\UteisMake;
 use stdClass;
 
-class MakeP0043 extends Make{
+class MakeP0072 extends Make{
     use UteisMake;
 
     protected $campos = null;
@@ -428,7 +428,7 @@ class MakeP0043 extends Make{
         
     }
 
-    private function createRelationshipItem($std, $attributes){
+    public function createRelationshipItem($std, $attributes){
 
         $possible = [
             'ITEM_CDITEM',
@@ -466,14 +466,6 @@ class MakeP0043 extends Make{
             "ITEM_CDITEM",
             $std->ITEM_CDITEM,
             true,
-            ""
-        );
-
-        $this->dom->addChild(
-            $Campos,
-            "DSBAIRRO",
-            $std->DSBAIRRO,
-            false,
             ""
         );
 
@@ -589,62 +581,6 @@ class MakeP0043 extends Make{
             ""
         );
 
-        $this->dom->addChild(
-            $Campos,
-            "STCREDITOIMP1",
-            $std->STCREDITOIMP1,
-            true,
-            ""
-        );
-
-        $this->dom->addChild(
-            $Campos,
-            "STCREDITOIMP2",
-            $std->STCREDITOIMP2,
-            true,
-            ""
-        );
-
-        $this->dom->addChild(
-            $Campos,
-            "STCREDITOIMP3",
-            $std->STCREDITOIMP3,
-            true,
-            ""
-        );
-
-        $this->dom->addChild(
-            $Campos,
-            "DSOBSERVACAO",
-            $std->DSOBSERVACAO,
-            false,
-            ""
-        );
-
-        $this->dom->addChild(
-            $Campos,
-            "OBSERVACAO_1",
-            $std->OBSERVACAO_1,
-            false,
-            ""
-        );
-
-        $this->dom->addChild(
-            $Campos,
-            "OBSERVACAO_2",
-            $std->OBSERVACAO_2,
-            false,
-            ""
-        );
-
-        $this->dom->addChild(
-            $Campos,
-            "OBSERVACAO_3",
-            $std->OBSERVACAO_3,
-            false,
-            ""
-        );
-
         $this->dom->appChild($Linha, $Campos);
 
         $this->dom->appChild($DadosTabela, $Linha);
@@ -652,7 +588,7 @@ class MakeP0043 extends Make{
         $this->relacionamentos[] = $DadosTabela;
     }
 
-    private function createRelationshipMTexto($std, $attributes){
+    public function createRelationshipMTexto($std, $attributes){
 
         $possible = [
             'TXMEMO',
@@ -767,7 +703,7 @@ class MakeP0043 extends Make{
         $this->relacionamentos[] = $DadosTabela;
     }
 
-    private function createRelationCredSP($std, $attributes){
+    public function createRelationCredSP($std, $attributes){
 
         $possible = [
             'NOORDEMREDESPACHO',
@@ -900,7 +836,7 @@ class MakeP0043 extends Make{
         $this->relacionamentos[] = $DadosTabela;
     }
 
-    private function createRelationEndereco($std, $attributes){
+    public function createRelationEndereco($std, $attributes){
 
         $possible = [
             'DSENDERECO',

@@ -47,6 +47,9 @@ class Tools {
 
     public function execLogin(){
 
+        if ( $this->idSessao )
+            return true;
+        
         $service = 'login';
 
         $make = new MakeLogin();
@@ -66,6 +69,7 @@ class Tools {
             throw DocumentsException::wrongDocument(2, '');
 
         }
+
         $this->idSessao = (String) $resp->Servico->attributes()['idsessao'];
 
     }
@@ -127,5 +131,21 @@ class Tools {
 
         return $xml;
     }
+
+    public function defaultRequest($service, $xml)
+    {
+
+        $this->execLogin();
+
+        $xml = $this->setSessaoXML($xml);
+        
+        $this->lastRequest = $xml;
+
+        $this->lastResponse = $this->send($service, $xml);
+
+        return $this->lastResponse;
+
+    }
+
 
 }

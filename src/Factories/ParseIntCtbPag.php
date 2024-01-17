@@ -4,23 +4,24 @@ namespace Focus599Dev\GKO\Factories;
 
 use Focus599Dev\GKO\Factories\Parse;
 
-class ParseP0043 extends Parse{
+class ParseIntCtbPag extends Parse{
 
     public function __construct(){
         
-        parent::__construct('P0043');
+        parent::__construct('IntCtbPag');
         
     }
 
     public function Entity0($std){
-        
+    }
+
+    public function Entitya($std){
         $this->make->fieldCampos($std);
-
     }
 
-    public function EntityA($std){
+    public function Entityb($std){
+      
     }
 
-    public function EntityB($std){
-    }
+   
 }
