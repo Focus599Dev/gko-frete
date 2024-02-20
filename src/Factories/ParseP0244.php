@@ -16,9 +16,13 @@ class ParseP0244 extends Parse{
         $this->make->fieldCampos($std);
     }
 
-    public function EntityA($std){
+    public function Entitya($std){
     }
 
-    public function EntityB($std){
+    public function Entityb($std){
     }
+
+    public function Entityc($std){}
+    public function Entityd($std){}
+    public function Entitye($std){}
 }

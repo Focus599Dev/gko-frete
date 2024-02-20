@@ -2,9 +2,11 @@
 
 namespace Focus599Dev\GKO\Common;
 
-use Focus599Dev\GKO\Exception\DocumentsException;
-use Focus599Dev\GKO\Factories\Make\MakeLogin;
+use DOMDocument;
 use Focus599Dev\GKO\Http\HttpCurl;
+use Focus599Dev\GKO\Factories\Make\MakeLogin;
+use Focus599Dev\GKO\Factories\Make\MakeLogout;
+use Focus599Dev\GKO\Exception\DocumentsException;
 
 class Tools {
 
@@ -17,7 +19,7 @@ class Tools {
     protected $idSessao;
 
     private $dataLogin;
-
+    
     private $pathwsfiles;
 
     private $urlService;
@@ -118,7 +120,10 @@ class Tools {
     protected function setSessaoXML($xml){
 
         if (is_string($xml)){
-            $xml = preg_replace('/(idsessao="")/', 'idsessao="'. $this->idSessao .'"', $xml);
+            $xml = preg_replace('/idsessao=""/', 'idsessao="'. $this->idSessao .'"', $xml);
+            
+            $xml = preg_replace('/idsessao="([0-9]{1,})"/', 'idsessao="'. $this->idSessao .'"', $xml);
+
         } else {
             try {
                 
@@ -132,10 +137,23 @@ class Tools {
         return $xml;
     }
 
-    public function defaultRequest($service, $xml)
+    public function defaultRequest($service, $xml, $retry = 0)
     {
 
-        $this->execLogin();
+        $excludeService = array('login', 'logout');
+
+        if ( !$this->idSessao ){
+
+            try{
+
+                $this->execLogin();
+
+            } catch(DocumentsException $e){
+
+
+            }
+
+        }
 
         $xml = $this->setSessaoXML($xml);
         
@@ -143,9 +161,83 @@ class Tools {
 
         $this->lastResponse = $this->send($service, $xml);
 
+        if (!in_array($service, $excludeService) && $this->lastResponse){
+
+            // fluxo para validar se idSessao é valido
+            if ($this->checkResponseHasError('7791', $this->lastResponse)){
+
+                $this->idSessao = null;
+
+                if ($retry < 4)
+                    return $this->defaultRequest($service, $xml, $retry+1);
+            }
+            
+        }
+
         return $this->lastResponse;
 
     }
 
+    public function checkResponseHasError($erro, $res){
+        
+        try{
+            $dom = new DOMDocument();
+        
+            $dom->loadXML($res);
 
+            $Mensagens = $dom->getElementsByTagName('Mensagens');
+                        
+            if ($Mensagens->length){
+
+                foreach($Mensagens as $mensagem){
+                    
+                    $cdMessagem = $mensagem->getElementsByTagName('cdMensagem');
+
+                    if ($cdMessagem->length){
+                        if ($cdMessagem->item(0)->nodeValue == $erro){
+
+                            return true;
+
+                        }
+                    }
+                }
+            }
+        } catch(\Exception $e){
+
+
+        }
+
+        return false;
+    }
+
+    public function logout(){
+
+        if ( $this->idSessao ){
+
+            $service = 'login';
+
+            $make = new MakeLogout($this->idSessao);
+
+            $make->fieldCampos();
+
+            $make->monta();
+
+            $xml = $make->getXML();
+
+            $this->lastResponse = $this->send($service, $xml);
+
+            $resp = simplexml_load_string($this->lastResponse);
+
+            $this->idSessao = null;
+
+        }
+    }
+
+    public function setIdSessao($idSessao){
+        $this->idSessao = $idSessao;
+    }
+
+    public function getIdSessao(){
+        return $this->idSessao;
+    }
 }

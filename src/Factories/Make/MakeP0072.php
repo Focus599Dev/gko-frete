@@ -9,7 +9,10 @@ class MakeP0072 extends Make{
     use UteisMake;
 
     protected $campos = null;
+
     protected $relacionamentos = array();
+
+    protected $itens = [];
 
     const TPSERVICO = 'impdados';
 
@@ -350,7 +353,7 @@ class MakeP0072 extends Make{
             $this->campos,
             "VRPESOBRUTO",
             $std->VRPESOBRUTO,
-            true,
+            false,
             ""
         );
 
@@ -358,7 +361,7 @@ class MakeP0072 extends Make{
             $this->campos,
             "VRPESOCUBADO",
             $std->VRPESOCUBADO,
-            true,
+            false,
             ""
         );
 
@@ -366,7 +369,7 @@ class MakeP0072 extends Make{
             $this->campos,
             "VRPESOLIQUIDO",
             $std->VRPESOLIQUIDO,
-            true,
+            false,
             ""
         );
 
@@ -374,7 +377,7 @@ class MakeP0072 extends Make{
             $this->campos,
             "QTVOLUME",
             $std->QTVOLUME,
-            true,
+            false,
             ""
         );
 
@@ -382,7 +385,7 @@ class MakeP0072 extends Make{
             $this->campos,
             "STCADASTRAMENTOPENDENTE",
             $std->STCADASTRAMENTOPENDENTE,
-            true,
+            false,
             ""
         );
 
@@ -449,13 +452,6 @@ class MakeP0072 extends Make{
         ];
         
         $std = $this->equilizeParameters($std, $possible);
-
-        $DadosTabela = $this->dom->createElement('DadosTabela');
-
-        foreach($attributes as $key => $attribute){
-            
-            $DadosTabela->setAttribute($key, $attribute);
-        }
 
         $Linha = $this->dom->createElement('Linha');
 
@@ -583,9 +579,28 @@ class MakeP0072 extends Make{
 
         $this->dom->appChild($Linha, $Campos);
 
-        $this->dom->appChild($DadosTabela, $Linha);
+        $this->itens[] = $Linha;
 
+    }
+
+
+    public function makeItens($attributes){
+
+        $DadosTabela = $this->dom->createElement('DadosTabela');
+
+        foreach($attributes as $key => $attribute){
+            
+            $DadosTabela->setAttribute($key, $attribute);
+        }
+
+        foreach($this->itens as $item){
+
+            $this->dom->appChild($DadosTabela, $item);
+
+        }
+        
         $this->relacionamentos[] = $DadosTabela;
+
     }
 
     public function createRelationshipMTexto($std, $attributes){
@@ -707,7 +722,7 @@ class MakeP0072 extends Make{
 
         $possible = [
             'NOORDEMREDESPACHO',
-            'PARREDESPACHO_TPPARCEIROCOMERCIA',
+            'PARREDESPACHO_TPPARCEIROCOMERCIAL',
             'PARREDESPACHO_CDPARCEIROCOMERCIAL',
             'PARREDESPACHO_NOCGCCPF',
             'PARTRPREDESPACHO_NOCGCCPF',
@@ -743,8 +758,8 @@ class MakeP0072 extends Make{
 
         $this->dom->addChild(
             $Campos,
-            "PARREDESPACHO_TPPARCEIROCOMERCIA",
-            $std->PARREDESPACHO_TPPARCEIROCOMERCIA,
+            "PARREDESPACHO_TPPARCEIROCOMERCIAL",
+            $std->PARREDESPACHO_TPPARCEIROCOMERCIAL,
             false,
             ""
         );
@@ -907,6 +922,15 @@ class MakeP0072 extends Make{
     }
 
     public function monta(){
+
+        if (count($this->itens)){
+            
+            $this->makeItens(array(
+                'NmRelacioPai' => 'MNTA_MNTAITM',
+                'nmTabela' => 'MNTAITEM',
+            ));
+
+        }
 
         $this->makeStructureDefault($this->campos, $this->relacionamentos);
 

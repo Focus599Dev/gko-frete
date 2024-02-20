@@ -23,5 +23,7 @@ class ParseIntCtbProv1 extends Parse{
       
     }
 
-   
+    public function Entityc($std){}
+    public function Entityd($std){}
+    public function Entitye($std){}
 }

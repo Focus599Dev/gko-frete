@@ -18,9 +18,13 @@ class ParseP0043 extends Parse{
 
     }
 
-    public function EntityA($std){
+    public function Entitya($std){
     }
 
-    public function EntityB($std){
+    public function Entityb($std){
     }
+
+    public function Entityc($std){}
+    public function Entityd($std){}
+    public function Entitye($std){}
 }

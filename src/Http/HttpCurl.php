@@ -55,7 +55,8 @@ class HttpCurl{
             $this->responseHead = trim(substr($response, 0, $headsize));
             $this->responseBody = trim(substr($response, $headsize));
 
-
+            // var_dump($xml);
+            // var_dump($response);
         } catch (\Exception $e) {
             throw CurlException::unableToLoadCurl($e->getMessage());
         }

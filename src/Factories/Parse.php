@@ -62,7 +62,8 @@ abstract class Parse{
             }
 
             $key = null;
-            if (in_array($lin[0], $keystructure)){
+            
+            if ($this->checkHeaderLetter($lin[0], $keystructure)){
     
                 $metodo = 'Entity' . strtolower(str_replace(' ', '', $lin[0]));
 
@@ -89,6 +90,16 @@ abstract class Parse{
             $this->$metodo($std);
         }
 
+    }
+
+    private function checkHeaderLetter($letter, $keystructure){
+
+        foreach($keystructure as $key => $st){
+            if ((String) $letter == (String) $st)
+                return true;
+        }
+
+        return false;
     }
 
     /**
@@ -122,6 +133,10 @@ abstract class Parse{
     }
 
     abstract function Entity0($std);
-    abstract function EntityA($std);
-    abstract function EntityB($std);
+    abstract function Entitya($std);
+    abstract function Entityb($std);
+    abstract function Entityc($std);
+    abstract function Entityd($std);
+    abstract function Entitye($std);
+    
 }
