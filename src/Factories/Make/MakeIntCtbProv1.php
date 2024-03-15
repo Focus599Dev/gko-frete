@@ -12,14 +12,17 @@ class MakeIntCtbProv1 extends Make{
 
     const TPSERVICO = 'impdados';
 
-    const CDINTEGRACAO = 'INTCTBLPROV';
+    const CDINTEGRACAO = 'INTCTBPROV';
+
+    const NMTABELA = 'INTCTBPROV';
 
     public function __construct()
     {
         
-        parent::__construct(self::TPSERVICO, self::CDINTEGRACAO);
+        parent::__construct(self::TPSERVICO, self::CDINTEGRACAO, null, array(
+            'nmTabela' => self::NMTABELA
+        ));
     }
-
     public function fieldCampos(stdClass $std){
   
         $possible = [
@@ -62,6 +65,12 @@ class MakeIntCtbProv1 extends Make{
     public function monta(){
 
         $this->makeStructureDefault($this->filtros);
+
+        $impDados = $this->GKO->getElementsByTagName('ImpDados');
+
+        if ($impDados->length){
+            $impDados->item(0)->setAttribute('QtdLimiteRegIniciais', 10);
+        }
 
         $this->dom->appendChild($this->GKO);
 
