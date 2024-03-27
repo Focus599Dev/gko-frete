@@ -547,7 +547,7 @@ class MakeP0072 extends Make{
 
         $this->dom->addChild(
             $Campos,
-            "CODCENTROCUSTO",
+            "CDCENTROCUSTO",
             $std->CODCENTROCUSTO,
             false,
             ""
