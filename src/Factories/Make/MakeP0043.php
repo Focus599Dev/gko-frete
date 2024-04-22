@@ -215,6 +215,53 @@ class MakeP0043 extends Make{
             'nmTabela' => 'CENDERECO',
         ));
         
+        $this->createRelationshipCeContato($std, array(
+            'NmRelacioPai' => 'CPARCONTATO',
+            'nmTabela' => 'CPAR_CPARCTO',
+        ));
+    }
+
+    private function createRelationshipCeContato($std, $attributes){
+
+        $possible = [
+            'MEIOCOMUNICACAO_CDMEIOCOMUNICACAO', 
+            'DSPARCONTATO', 
+        ];
+        
+        $std = $this->equilizeParameters($std, $possible);
+
+        $DadosTabela = $this->dom->createElement('DadosTabela');
+
+        foreach($attributes as $key => $attribute){
+            
+            $DadosTabela->setAttribute($key, $attribute);
+        }
+
+        $Linha = $this->dom->createElement('Linha');
+
+        $Campos = $this->dom->createElement('Campos');
+
+        $this->dom->addChild(
+            $Campos,
+            "MEIOCOMUNICACAO_CDMEIOCOMUNICACAO",
+            $std->MEIOCOMUNICACAO_CDMEIOCOMUNICACAO,
+            true,
+            ""
+        );
+
+        $this->dom->addChild(
+            $Campos,
+            "DSPARCONTATO",
+            $std->DSPARCONTATO,
+            true,
+            ""
+        );
+
+        $this->dom->appChild($Linha, $Campos);
+
+        $this->dom->appChild($DadosTabela, $Linha);
+
+        $this->relacionamentos[] = $DadosTabela;
     }
 
     private function createRelationshipCeEndereco($std, $attributes){
