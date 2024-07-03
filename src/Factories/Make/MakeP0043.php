@@ -215,55 +215,95 @@ class MakeP0043 extends Make{
             'nmTabela' => 'CENDERECO',
         ));
         
-        $this->createRelationshipCeContato($std, array(
+        $this->createRelationshipContato($std, array(
             'NmRelacioPai' => 'CPARCONTATO',
             'nmTabela' => 'CPAR_CPARCTO',
         ));
     }
 
-    private function createRelationshipCeContato($std, $attributes){
+    private function createRelationshipContato($std, $attributes){
 
-        $possible = [
+        $possibles = [
             'MEIOCOMUNICACAO_CDMEIOCOMUNICACAO', 
             'DSPARCONTATO', 
+            'STRECAVISODIFCOBRANCA', 
+            'STRECAVISOATRAZOENTREGA', 
+            'STRECAVISOCONFIRMACAOST', 
         ];
-        
-        $std = $this->equilizeParameters($std, $possible);
 
-        $DadosTabela = $this->dom->createElement('DadosTabela');
+        $isCreate = false;
 
-        foreach($attributes as $key => $attribute){
-            
-            $DadosTabela->setAttribute($key, $attribute);
+        foreach($possibles as $possible){
+
+            if($std->{$possible}){
+                $isCreate = true;
+                break;
+            }
         }
 
-        $Linha = $this->dom->createElement('Linha');
+        if ($isCreate){
 
-        $Campos = $this->dom->createElement('Campos');
+            $std = $this->equilizeParameters($std, $possibles);
 
-        $this->dom->addChild(
-            $Campos,
-            "MEIOCOMUNICACAO_CDMEIOCOMUNICACAO",
-            $std->MEIOCOMUNICACAO_CDMEIOCOMUNICACAO,
-            true,
-            ""
-        );
+            $DadosTabela = $this->dom->createElement('DadosTabela');
 
-        $this->dom->addChild(
-            $Campos,
-            "DSPARCONTATO",
-            $std->DSPARCONTATO,
-            true,
-            ""
-        );
+            foreach($attributes as $key => $attribute){
+                
+                $DadosTabela->setAttribute($key, $attribute);
+            }
+    
+            $Linha = $this->dom->createElement('Linha');
+    
+            $Campos = $this->dom->createElement('Campos');
+    
+            $this->dom->addChild(
+                $Campos,
+                "MEIOCOMUNICACAO_CDMEIOCOMUNICACAO",
+                $std->MEIOCOMUNICACAO_CDMEIOCOMUNICACAO,
+                false,
+                ""
+            );
 
-        $this->dom->appChild($Linha, $Campos);
+            $this->dom->addChild(
+                $Campos,
+                "DSPARCONTATO",
+                $std->DSPARCONTATO,
+                false,
+                ""
+            );
 
-        $this->dom->appChild($DadosTabela, $Linha);
+            $this->dom->addChild(
+                $Campos,
+                "STRECAVISODIFCOBRANCA",
+                $std->STRECAVISODIFCOBRANCA,
+                false,
+                ""
+            );
 
-        $this->relacionamentos[] = $DadosTabela;
+            $this->dom->addChild(
+                $Campos,
+                "STRECAVISOATRAZOENTREGA",
+                $std->STRECAVISOATRAZOENTREGA,
+                false,
+                ""
+            );
+
+            $this->dom->addChild(
+                $Campos,
+                "STRECAVISOCONFIRMACAOST",
+                $std->STRECAVISOCONFIRMACAOST,
+                false,
+                ""
+            );
+
+            $this->dom->appChild($Linha, $Campos);
+
+            $this->dom->appChild($DadosTabela, $Linha);
+    
+            $this->relacionamentos[] = $DadosTabela;
+        }
     }
-
+    
     private function createRelationshipCeEndereco($std, $attributes){
 
         $possible = [
